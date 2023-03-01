@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.anderson.project.entities.Category;
 import com.anderson.project.entities.Order;
+import com.anderson.project.entities.OrderItem;
 import com.anderson.project.entities.Product;
 import com.anderson.project.entities.User;
 import com.anderson.project.entities.enums.OrderStatus;
 import com.anderson.project.repositories.CategoryRepository;
+import com.anderson.project.repositories.OrderItemRepository;
 import com.anderson.project.repositories.OrderRepository;
 import com.anderson.project.repositories.ProductRepository;
 import com.anderson.project.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -58,10 +63,16 @@ public class TestConfig implements CommandLineRunner {
 		product3.getCategories().add(category3);
 		product4.getCategories().add(category3);
 		product5.getCategories().add(category2);
+		
+		OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
+		OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
+		OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
+		OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
 
 		userRepository.saveAll(Arrays.asList(user1, user2));
 		orderRepository.saveAll(Arrays.asList(order1, order2, order3));
 		categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
 		productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
+		orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
 	}
 }
