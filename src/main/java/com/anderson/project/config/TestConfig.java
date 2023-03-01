@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.anderson.project.entities.Category;
 import com.anderson.project.entities.Order;
 import com.anderson.project.entities.OrderItem;
+import com.anderson.project.entities.Payment;
 import com.anderson.project.entities.Product;
 import com.anderson.project.entities.User;
 import com.anderson.project.entities.enums.OrderStatus;
@@ -74,5 +75,9 @@ public class TestConfig implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
 		productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
 		orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2022-06-20T21:53:07Z"), order1);
+		order1.setPayment(pay1);
+		orderRepository.save(order1);
 	}
 }
